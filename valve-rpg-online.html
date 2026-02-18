@@ -1,0 +1,901 @@
+<!DOCTYPE html>
+<!-- saved from url=(0188)https://dede3phc22dgx.cloudfront.net/creao2/dcaaa326-c36e-4585-ab82-3ff22c26afb5/78c153d0-8021-708c-3a82-42e7f890ce9f/89c7696e-5992-4747-8f55-b1863e4b3aae/ficha-rpg-valve-online-fixed.html -->
+<html lang="pt-BR"><style class="adjust-screen-brightness" media="screen"></style><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VALVE RPG - Sistema Online</title>
+    <link href="./valve-rpg-online_files/css2" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Special Elite', cursive;
+            background: linear-gradient(135deg, #1a1410 0%, #2d1b0e 100%);
+            color: #f4e4c1;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* LOGIN SECTION */
+        .login-section {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            gap: 30px;
+        }
+
+        .login-title {
+            font-family: 'Cinzel Decorative', cursive;
+            font-size: 4em;
+            color: #c9a961;
+            text-shadow: 0 0 20px rgba(201, 169, 97, 0.5);
+            margin-bottom: 20px;
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes glow {
+            from { text-shadow: 0 0 20px rgba(201, 169, 97, 0.5); }
+            to { text-shadow: 0 0 40px rgba(201, 169, 97, 0.8), 0 0 60px rgba(201, 169, 97, 0.6); }
+        }
+
+        .role-selector {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .role-btn {
+            padding: 15px 40px;
+            font-family: 'Cinzel Decorative', cursive;
+            font-size: 1.2em;
+            background: linear-gradient(135deg, #5f4d43 0%, #3d2f28 100%);
+            border: 2px solid #8b6f47;
+            color: #f4e4c1;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border-radius: 5px;
+        }
+
+        .role-btn:hover {
+            background: linear-gradient(135deg, #8b6f47 0%, #5f4d43 100%);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 20px rgba(201, 169, 97, 0.4);
+        }
+
+        .role-btn.active {
+            background: linear-gradient(135deg, #c9a961 0%, #8b6f47 100%);
+            border-color: #c9a961;
+            color: #1a1410;
+        }
+
+        .login-form {
+            background: rgba(45, 27, 14, 0.8);
+            border: 2px solid #8b6f47;
+            border-radius: 10px;
+            padding: 40px;
+            min-width: 400px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #c9a961;
+            font-size: 1.1em;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 12px;
+            background: rgba(26, 20, 16, 0.6);
+            border: 1px solid #8b6f47;
+            border-radius: 5px;
+            color: #f4e4c1;
+            font-family: 'Special Elite', cursive;
+            font-size: 1em;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: #c9a961;
+            box-shadow: 0 0 10px rgba(201, 169, 97, 0.3);
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(135deg, #c9a961 0%, #8b6f47 100%);
+            border: none;
+            border-radius: 5px;
+            color: #1a1410;
+            font-family: 'Cinzel Decorative', cursive;
+            font-size: 1.2em;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(201, 169, 97, 0.5);
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        /* DASHBOARD */
+        .dashboard {
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .dashboard-header {
+            background: rgba(45, 27, 14, 0.8);
+            border: 2px solid #8b6f47;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .user-info {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .user-info h2 {
+            font-family: 'Cinzel Decorative', cursive;
+            color: #c9a961;
+            font-size: 1.5em;
+        }
+
+        .session-code {
+            color: #8b6f47;
+            font-size: 0.9em;
+        }
+
+        .logout-btn {
+            padding: 10px 30px;
+            background: linear-gradient(135deg, #8b3a3a 0%, #5f2828 100%);
+            border: 2px solid #a04040;
+            border-radius: 5px;
+            color: #f4e4c1;
+            font-family: 'Cinzel Decorative', cursive;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .logout-btn:hover {
+            background: linear-gradient(135deg, #a04040 0%, #8b3a3a 100%);
+            transform: translateY(-2px);
+        }
+
+        /* MASTER PANEL */
+        .master-panel {
+            background: rgba(45, 27, 14, 0.8);
+            border: 2px solid #8b6f47;
+            border-radius: 10px;
+            padding: 30px;
+            margin-bottom: 30px;
+        }
+
+        .master-panel h3 {
+            font-family: 'Cinzel Decorative', cursive;
+            color: #c9a961;
+            font-size: 1.8em;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .players-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .player-card {
+            background: rgba(26, 20, 16, 0.8);
+            border: 2px solid #8b6f47;
+            border-radius: 8px;
+            padding: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .player-card:hover {
+            border-color: #c9a961;
+            transform: translateY(-5px);
+            box-shadow: 0 5px 20px rgba(201, 169, 97, 0.3);
+        }
+
+        .player-card.active {
+            border-color: #c9a961;
+            background: rgba(201, 169, 97, 0.1);
+        }
+
+        .player-card h4 {
+            color: #c9a961;
+            font-size: 1.2em;
+            margin-bottom: 10px;
+        }
+
+        .player-status {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.9em;
+            color: #8b6f47;
+        }
+
+        .remove-player {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: #8b3a3a;
+            border: none;
+            color: #f4e4c1;
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1em;
+            transition: all 0.2s ease;
+        }
+
+        .remove-player:hover {
+            background: #a04040;
+            transform: scale(1.1);
+        }
+
+        /* FICHA CONTAINER */
+        .ficha-container {
+            background: rgba(45, 27, 14, 0.8);
+            border: 2px solid #8b6f47;
+            border-radius: 10px;
+            padding: 20px;
+            min-height: 600px;
+        }
+
+        .ficha-container iframe {
+            width: 100%;
+            height: 100vh;
+            border: none;
+            border-radius: 5px;
+        }
+
+        .no-player-selected {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 400px;
+            color: #8b6f47;
+            font-size: 1.2em;
+            text-align: center;
+        }
+
+        /* MOBILE RESPONSIVE */
+        @media (max-width: 768px) {
+            .login-form {
+                min-width: 90vw;
+                padding: 30px 20px;
+            }
+
+            .login-title {
+                font-size: 2.5em;
+            }
+
+            .role-selector {
+                flex-direction: column;
+                width: 100%;
+            }
+
+            .dashboard-header {
+                flex-direction: column;
+                gap: 15px;
+                text-align: center;
+            }
+
+            .players-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .status-indicator {
+            display: inline-block;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            margin-right: 5px;
+        }
+
+        .status-online {
+            background: #4ade80;
+            box-shadow: 0 0 10px #4ade80;
+        }
+
+        .status-offline {
+            background: #6b7280;
+        }
+    </style>
+<style type="text/css" id="operaUserStyle">
+  img {
+    filter: -opera-shader(url(data:text/plain;base64,Ly8gaHR0cHM6Ly9naXRodWIuY29tL0dQVU9wZW4tRWZmZWN0cy9GaWRlbGl0eUZYLUNBUwovLyB2MwoKdW5pZm9ybSBzaGFkZXIgaUNodW5rOwp1bmlmb3JtIGZsb2F0MiBpTW91c2U7CnVuaWZvcm0gZmxvYXQ0IGlWaXNpYmxlUmVjdDsKdW5pZm9ybSBmbG9hdCBpQXJnc1sxXTsKCmNvbnN0IGZsb2F0IEVQU0lPTiA9IDAuMTsKY29uc3QgZmxvYXQgVl9NSU4gPSAwOwpjb25zdCBmbG9hdCBWX0xPVyA9IDAuMjU7CmNvbnN0IGZsb2F0IFZfTUVEID0gMC41Owpjb25zdCBmbG9hdCBWX0hJR0ggPSAwLjc1Owpjb25zdCBmbG9hdCBWX01BWCA9IDE7Cgpjb25zdCBmbG9hdCBUSFJFU0hPTERfQVJFQSA9IDgwMCAqIDYwMDsKY29uc3QgZmxvYXQgTUlOX0FSRUEgPSA0MDAgKiAxMDA7CmNvbnN0IGZsb2F0IE1JTl9TVFJJUCA9IDIwOwpjb25zdCBmbG9hdCBNQVJHSU4gPSAxOwoKaW5saW5lIGZsb2F0MyBwaXhlbChmbG9hdDIgeHksIGZsb2F0MiBvZmZzZXQpIHsKICAgIHJldHVybiBpQ2h1bmsuZXZhbCh4eSArIG9mZnNldCkucmdiOwp9CgppbmxpbmUgZmxvYXQzIHNoYXJwZW4oZmxvYXQyIHh5KSB7CiAgICBmbG9hdDMgZiA9CiAgICAgICAgcGl4ZWwoeHksIGZsb2F0MigtMSwgLTEpKSAqICAxICsKICAgICAgICBwaXhlbCh4eSwgZmxvYXQyKCAwLCAtMSkpICogLTEgKwogICAgICAgIHBpeGVsKHh5LCBmbG9hdDIoIDEsIC0xKSkgKiAgMSArCgogICAgICAgIHBpeGVsKHh5LCBmbG9hdDIoLTEsIDApKSAqIC0xICArCiAgICAgICAgcGl4ZWwoeHksIGZsb2F0MiggMCwgMCkpICogLTEgICsKICAgICAgICBwaXhlbCh4eSwgZmxvYXQyKCAxLCAwKSkgKiAtMSAgKwoKICAgICAgICBwaXhlbCh4eSwgZmxvYXQyKC0xLCAxKSkgKiAxICAgKwogICAgICAgIHBpeGVsKHh5LCBmbG9hdDIoIDAsIDEpKSAqIC0xICArCiAgICAgICAgcGl4ZWwoeHksIGZsb2F0MiggMSwgMSkpICogMTsKICAgIHJldHVybiBmIC8gLTE7Cn0KCmZsb2F0NCBSR1gyKGZsb2F0MiB4eSkgewogICAgZmxvYXQyIGNodW5rX3NpemUgPSBpVmlzaWJsZVJlY3Quenc7CiAgICBmbG9hdDQgY29sb3IgPSBpQ2h1bmsuZXZhbCh4eSk7CgogICAgaWYgKGNodW5rX3NpemUueCAqIGNodW5rX3NpemUueSA8IE1JTl9BUkVBKSB7CiAgICAgICAgcmV0dXJuIGNvbG9yOwogICAgfQoKICAgIGlmIChjaHVua19zaXplLnkgPCBNSU5fU1RSSVAgfHwgY2h1bmtfc2l6ZS54IDwgTUlOX1NUUklQKSB7CiAgICAgICAgcmV0dXJuIGNvbG9yOwogICAgfQoKICAgIGlmICh4eS54IDwgTUFSR0lOIHx8IHh5LnggPiAoY2h1bmtfc2l6ZS54IC0gTUFSR0lOKSB8fAogICAgICAgIHh5LnkgPCBNQVJHSU4gfHwgeHkueSA+IChjaHVua19zaXplLnkgLSBNQVJHSU4pKSB7CiAgICAgICAgcmV0dXJuIGNvbG9yOwogICAgfQoKICAgIHJldHVybiBmbG9hdDQoc2hhcnBlbih4eSksIDEpOwp9CgppbmxpbmUgZmxvYXQzIG1pbjN2KGZsb2F0MyB4LCBmbG9hdDMgeSwgZmxvYXQzIHopIHsKCXJldHVybiBtaW4oeCwgbWluKHksIHopKTsKfQoKaW5saW5lIGZsb2F0MyBtYXgzdihmbG9hdDMgeCwgZmxvYXQzIHksIGZsb2F0MyB6KSB7CglyZXR1cm4gbWF4KHgsIG1heCh5LCB6KSk7Cn0KCmZsb2F0MyBSR1gzKGZsb2F0MiB4eSwgZmxvYXQgc3RyZW5ndGgpIHsKICAgIGZsb2F0MyBhID0gcGl4ZWwoeHksIGZsb2F0MigtMSwgLTEpKTsKICAgIGZsb2F0MyBiID0gcGl4ZWwoeHksIGZsb2F0MiggMCwgLTEpKTsKICAgIGZsb2F0MyBjID0gcGl4ZWwoeHksIGZsb2F0MiggMSwgLTEpKTsKCiAgICBmbG9hdDMgZCA9IHBpeGVsKHh5LCBmbG9hdDIoLTEsIDApKTsKICAgIGZsb2F0MyBlID0gcGl4ZWwoeHksIGZsb2F0MiggMCwgMCkpOwogICAgZmxvYXQzIGYgPSBwaXhlbCh4eSwgZmxvYXQyKCAxLCAwKSk7CgogICAgZmxvYXQzIGcgPSBwaXhlbCh4eSwgZmxvYXQyKC0xLCAxKSk7CiAgICBmbG9hdDMgaCA9IHBpeGVsKHh5LCBmbG9hdDIoIDAsIDEpKTsKICAgIGZsb2F0MyBpID0gcGl4ZWwoeHksIGZsb2F0MiggMSwgMSkpOwoKICAgIGZsb2F0MyBtaW5fZGVmID0gbWluM3YoZCwgZSwgZik7CiAgICBmbG9hdDMgbWluX2JkZWZoID0gbWluM3YoYiwgbWluX2RlZiwgaCk7CiAgICBmbG9hdDMgbWluX2FiY2RmZ2hpID0gbWluM3YobWluM3YoYSwgbWluX2JkZWZoLCBjKSwgZywgaSk7CiAgICBmbG9hdDMgbWluM19mYWN0b3IgPSBtaW5fYmRlZmggKyBtaW5fYWJjZGZnaGk7CgogICAgZmxvYXQzIG1heF9kZWYgPSBtYXgzdihkLCBlLCBmKTsKICAgIGZsb2F0MyBtYXhfYmRlZmggPSBtYXgzdihiLCBtYXhfZGVmLCBoKTsKICAgIGZsb2F0MyBtYXhfYWJjZGZnaGkgPSBtYXgzdihtYXgzdihhLCBtaW5fYmRlZmgsIGMpLCBnLCBpKTsKICAgIGZsb2F0MyBtYXgzX2ZhY3RvciA9IG1heF9iZGVmaCArIG1heF9hYmNkZmdoaTsKCiAgICBmbG9hdDMgZmFjdG9yID0gMS4wIC8gbWF4M19mYWN0b3I7CgogICAgZmxvYXQzIGFtcCA9IHNhdHVyYXRlKG1pbihtaW4zX2ZhY3RvciwgMiAtIG1heDNfZmFjdG9yKSAqIGZhY3Rvcik7CiAgICBmbG9hdDMgYW1wX3NxcnQgPSBzcXJ0KGFtcCk7CgogICAgZmxvYXQgcGVhayA9IC0xLjAgLyAobWl4KDgsIDUsIHN0cmVuZ3RoKSk7CgogICAgZmxvYXQzIGNyb3NzX3dlaWdodHMgPSBhbXBfc3FydCAqIHBlYWs7CiAgICBmbG9hdDMgd2VpZ2h0cyA9IDEgLyAoMSArIDQgKiBjcm9zc193ZWlnaHRzKTsKCiAgICBmbG9hdDMgcmVzdWx0ID0gKChiICsgZCArIGYgKyBoKSAqIGNyb3NzX3dlaWdodHMgKyBlKSAqIHdlaWdodHM7CgogICAgcmV0dXJuIHNhdHVyYXRlKHJlc3VsdCk7Cn0KCmZsb2F0NCBtYWluKGZsb2F0MiB4eSkgewoKICAgIGZsb2F0NCBvcmlnaW5hbENvbG9yID0gaUNodW5rLmV2YWwoeHkpOwogICAgaWYgKG9yaWdpbmFsQ29sb3IuYSA8IDEpIHsKICAgICAgICByZXR1cm4gaUNodW5rLmV2YWwoeHkpOwogICAgfQoKICAgIGZsb2F0IGludGVuc2l0eSA9IGlBcmdzWzBdOwogICAgZmxvYXQgc3RyZW5ndGggPSAwOwogICAgZmxvYXQzIGNvbG9yOwoKICAgIGlmIChpbnRlbnNpdHkgPCBWX01JTiArIEVQU0lPTikgewogICAgICAgIHN0cmVuZ3RoID0gMC4xMDsKICAgICAgICBjb2xvciA9IFJHWDMoeHksIHN0cmVuZ3RoKTsKCiAgICB9IGVsc2UgaWYgKGludGVuc2l0eSA+IFZfTE9XIC0gRVBTSU9OICYmIGludGVuc2l0eSA8IFZfTE9XICsgRVBTSU9OKSB7CiAgICAgICAgc3RyZW5ndGggPSAwLjMzOwogICAgICAgIGNvbG9yID0gUkdYMyh4eSwgc3RyZW5ndGgpOwoKICAgIH0gZWxzZSBpZiAoaW50ZW5zaXR5ID4gVl9NRUQgLSBFUFNJT04gJiYgaW50ZW5zaXR5IDwgVl9NRUQgKyBFUFNJT04pIHsKICAgICAgICBzdHJlbmd0aCA9IDAuNTsKICAgICAgICBjb2xvciA9IFJHWDMoeHksIHN0cmVuZ3RoKTsKCiAgICB9IGVsc2UgaWYgKGludGVuc2l0eSA+IFZfSElHSCAtIEVQU0lPTiAmJiBpbnRlbnNpdHkgPCBWX0hJR0ggKyBFUFNJT04pIHsKICAgICAgICBzdHJlbmd0aCA9IDAuOTk7CiAgICAgICAgY29sb3IgPSBSR1gzKHh5LCBzdHJlbmd0aCk7CgogICAgfSBlbHNlIGlmIChpbnRlbnNpdHkgPiBWX01BWCAtIEVQU0lPTikgewogICAgICAgIHN0cmVuZ3RoID0gMTsKICAgICAgICBjb2xvciA9IFJHWDIoeHkpLnJnYjsKICAgIH0KCiAgICByZXR1cm4gZmxvYXQ0KGNvbG9yLCBvcmlnaW5hbENvbG9yLmEpOwp9) -opera-args(0.50 calc(env(-opera-accent-color-r, 255)/255) calc(env(-opera-accent-color-g, 255)/255) calc(env(-opera-accent-color-b, 255)/255)));
+  }
+</style><style type="text/css">:root img[width="728"][height="90"], :root [href="https://adstub.net/cina777/"], :root [href="https://adstub.net/arab777/"], :root [href="https://adstub.net/ratu89/"], :root [href="https://adstub.net/judi89/"], :root [href^="//mage98rquewz.com/"], :root [href^="//x4pollyxxpush.com/"], :root span[id^="ezoic-pub-ad-placeholder-"], :root ins.adsbygoogle[data-ad-slot], :root ins.adsbygoogle[data-ad-client], :root img[src^="https://s-img.adskeeper.com/"], :root guj-ad, :root gpt-ad, :root div[ow-ad-unit-wrapper], :root div[id^="zergnet-widget"], :root div[id^="vuukle-ad-"], :root div[id^="taboola-stream-"], :root div[id^="sticky_ad_"], :root div[id^="st"][style^="z-index: 999999999;"], :root div[id^="rc-widget-"], :root div[id^="mrec-leaderboard-"], :root div[id^="gpt_ad_"], :root div[id^="ezoic-pub-ad-"], :root div[id^="dfp-ad-"], :root div[id^="crt-"][style], :root div[id^="apn_native_ad_slot_"], :root div[id^="adspot-"], :root div[id^="adrotate_widgets-"], :root ps-connatix-module, :root div[id^="ad_position_"], :root div[id^="ad-div-"], :root div[id*="ScriptRoot"], :root div[id*="MarketGid"], :root [href="https://adstub.net/rusia777/"], :root div[data-id-advertdfpconf], :root div[data-dfp-id], :root hl-adsense, :root div[data-contentexchange-widget], :root div[data-alias="300x250 Ad 2"], :root div[data-adunit-path], :root div[data-adname], :root div[data-ad-placeholder], :root a[href^="https://osfultrbriolenai.info/"], :root div[class^="Adstyled__AdWrapper-"], :root a[href^="https://go.xlviiirdr.com"], :root div[class$="-adlabel"], :root display-ads, :root a[href^="https://go.grinsbest.com/"], :root citrus-ad-wrapper, :root a[href^="https://s.zlinkd.com/"], :root bottomadblock, :root amp-fx-flying-carpet, :root amp-embed[type="taboola"], :root amp-connatix-player, :root div[id^="google_dfp_"], :root ad-slot, :root a[href^="https://www.purevpn.com/"][href*="&utm_source=aff-"], :root a[href^="https://www.privateinternetaccess.com/"] > img, :root a[href^="https://www.onlineusershielder.com/"], :root a[href^="https://financeads.net/tc.php?"], :root a[href^="https://www.mrskin.com/tour"], :root a[href^="https://www.infowarsstore.com/"] > img, :root a[href^="https://ak.psaltauw.net/"], :root broadstreet-zone-container, :root a[href^="https://www.highperformancecpmgate.com/"], :root amp-ad, :root a[href^="https://www.highcpmrevenuenetwork.com/"], :root a[href^="https://www.get-express-vpn.com/offer/"], :root a[href^="https://lnkxt.bannerator.com/"], :root a[href^="https://www.geekbuying.com/dynamic-ads/"], :root [href^="https://groorsoa.net/"], :root a[href^="https://www.financeads.net/tc.php?"], :root a[href^="https://www.effectiveratecpm.com/"], :root [href^="https://www.herbanomic.com/"] > img, :root a[href^="https://www.dql2clk.com/"], :root a[href^="https://www.nutaku.net/signup/landing/"], :root a[href^="https://www.dating-finder.com/signup/?ai_d="], :root a[href^="https://explore-site.com/"], :root a[href^="https://www.brazzersnetwork.com/landing/"], :root [data-template-type="nativead"], :root a[href^="https://www.adultempire.com/"][href*="?partner_id="], :root a[href^="https://voluum.prom-xcams.com/"], :root a[href^="https://twinrdsyte.com/"], :root a[href^="https://twinrdsrv.com/"], :root a[href^="https://syndicate.contentsserved.com/"], :root div[data-alias="300x250 Ad 1"], :root a[href^="https://trk.nfl-online-streams.club/"], :root a[href^="https://tracking.avapartner.com/"], :root a[href^="https://track.wg-aff.com"], :root a[href^="https://track.ultravpn.com/"], :root a[href^="https://track.afcpatrk.com/"], :root a[href^="https://track.adform.net/"], :root a[href^="https://torguard.net/aff.php"] > img, :root [data-identity="adhesive-ad"], :root a[href^="https://tc.tradetracker.net/"] > img, :root a[href^="https://tatrck.com/"], :root [href^="https://zstacklife.com/"] img, :root a[href^="https://click.candyoffers.com/"], :root a[href^="https://t.aslnk.link/"], :root a[onmousedown^="this.href='https://paid.outbrain.com/network/redir?"], :root a[href^="https://t.ajump1.com/"], :root a[href^="https://t.adating.link/"], :root a[href^="https://go.trackitalltheway.com/"], :root [href^="https://track.fiverr.com/visit/"] > img, :root a[href^="https://syndication.exoclick.com/"], :root a[href^="https://syndication.dynsrvtbg.com/"], :root .gnt_em_vp_c[data-g-s="vp_dk"], :root div[data-ad-wrapper], :root a[href^="https://svb-analytics.trackerrr.com/"], :root a[onmousedown^="this.href='https://paid.outbrain.com/network/redir?"] + .ob_source, :root a[href^="http://www.iyalc.com/"], :root a[href^="https://claring-loccelkin.com/"], :root a[href^="https://stardomcoit.com/"], :root a[href^="https://track.aftrk5.com/"], :root a[href^="https://slkmis.com/"], :root a[href^="https://myclick-2.com/"], :root a[href^="https://sexynearme.com/"], :root [data-ad-manager-id], :root a[href^="https://s.zlinkr.com/"], :root [href="https://adstub.net/gaza88/"], :root a[href^="https://ad.doubleclick.net/"], :root a[href^="https://static.fleshlight.com/images/banners/"], :root a[href^="https://s.zlink7.com/"], :root a[href^="https://s.ma3ion.com/"], :root a[href^="https://s.eunow4u.com/"], :root a[href^="https://random-affiliate.atimaze.com/"], :root #kt_player > div[style$="display: block;"][style*="inset: 0px;"], :root [href$="/sexdating.php"], :root a[href^="https://quotationfirearmrevision.com/"], :root a[href^="https://pubads.g.doubleclick.net/"], :root a[href^="https://prf.hn/click/"][href*="/camref:"] > img, :root a[href^="https://serve.awmdelivery.com/"], :root a[href^="https://www.dating-finder.com/?ai_d="], :root a[href^="https://prf.hn/click/"][href*="/adref:"] > img, :root [href^="https://ap.octopuspop.com/click/"] > img, :root app-ad, :root a[href^="https://postback1win.com/"], :root a[href^="https://a.adtng.com/"], :root a[href^="https://playnano.online/offerwalls/?ref="], :root a[href^="https://mmwebhandler.aff-online.com/"], :root a[href^="https://www.bet365.com/"][href*="affiliate="], :root a[href^="https://pb-track.com/"], :root a[href^="https://pb-front.com/"], :root a[href^="https://paid.outbrain.com/network/redir?"], :root a[href^="https://streamate.com/landing/click/"], :root a[href^="https://upsups.click/"], :root a[href^="https://ndt5.net/"], :root a[href^="https://natour.naughtyamerica.com/track/"], :root a[href^="https://mediaserver.entainpartners.com/renderBanner.do?"], :root [data-ad-name], :root a[href^="https://loboclick.com/"], :root a[href^="https://lead1.pl/"], :root a[href^="https://landing.brazzersnetwork.com/"], :root a[href^="https://juicyads.in/"], :root a[href^="https://snowdayonline.xyz/"], :root a[href^="https://join.dreamsexworld.com/"], :root a[href^="https://join.bannedsextapes.com/track/"], :root a[href^="https://jaxofuna.com/"], :root a[href^="https://italarizege.xyz/"], :root a[href^="https://identicaldrench.com/"], :root ad-shield-ads, :root a[href^="https://hot-growngames.life/"], :root a[href^="https://helmethomicidal.com/"], :root display-ad-component, :root a[href^="https://golinks.work/"], :root a[href^="https://s.zlinkn.com/"], :root a[href^="https://go.xxxvjmp.com/"], :root a[href^="https://go.xxxjmp.com"], :root a[href^="https://zirdough.net/"], :root [class^="tile-picker__CitrusBannerContainer-sc-"], :root a[href^="https://go.xxxiijmp.com"], :root a[href^="https://go.xtbaffiliates.com/"], :root [data-role="tile-ads-module"], :root a[href^="https://go.xlviirdr.com"], :root a[href^="https://go.xlivrdr.com"], :root a[href^="https://ismlks.com/"], :root [href^="https://www.mypillow.com/"] > img, :root a[href^="https://go.xlirdr.com"], :root [data-css-class="dfp-inarticle"], :root a[href^="https://go.tmrjmp.com"], :root a[href^="https://go.markets.com/visit/?bta="], :root a[href^="https://billing.purevpn.com/aff.php"] > img, :root a[href^="https://go.hpyrdr.com/"], :root a[href^="https://lijavaxa.com/"], :root a[href^="https://go.goaserv.com/"], :root app-large-ad, :root [href^="https://turtlebids.irauctions.com/"] img, :root div[data-adunit], :root a[href^="https://go.etoro.com/"] > img, :root a[href^="https://go.dmzjmp.com"], :root a[href^="https://www.bang.com/?aff="], :root #mgb-container > #mgb, :root a[href^="https://go.admjmp.com"], :root a[href^="https://get.surfshark.net/aff_c?"][href*="&aff_id="] > img, :root a[href^="https://datewhisper.life/"], :root a[href^="https://click.linksynergy.com/fs-bin/"] > img, :root a[href^="https://get-link.xyz/"], :root a[href^="https://www.mrskin.com/account/"], :root a[href^="https://www.adskeeper.com"], :root a[data-redirect^="https://paid.outbrain.com/network/redir?"], :root [href^="https://clicks.affstrack.com/"] > img, :root a[href^="https://engine.phn.doublepimp.com/"], :root a[href^="https://dl-protect.net/"], :root a[href*=".foxqck.com/"], :root a[href^="https://ctosrd.com/"], :root a[href^="https://go.bushheel.com/"], :root a[href^="https://ctjdwm.com/"], :root [href="//sexcams.plus/"], :root a[href^="https://camfapr.com/landing/click/"], :root a[href^="https://prf.hn/click/"][href*="/creativeref:"] > img, :root a[href*="&maxads="], :root a[href^="http://www.adultempire.com/unlimited/promo?"][href*="&partner_id="], :root a[href^="https://1betandgonow.com/"], :root a[href^="https://chaturbate.com/in/?"], :root a[href^="https://t.ajrkm1.com/"], :root a[href^="https://bongacams10.com/track?"], :root a[href*=".g2afse.com/"], :root a[href^="https://bodelen.com/"], :root a[href^="//hoodingluster.com/"], :root a[href^="https://black77854.com/"], :root a[href^="https://getmatchedlocally.com/"], :root app-advertisement, :root a[href^="https://rixofa.com/"], :root a[href^="https://best-experience-cool.com/"], :root [data-taboola-options], :root a[href^="https://believessway.com/"], :root a[href^="https://Click.ggpickaff.com/"], :root a[href^="https://banners.livepartners.com/"], :root a[href^="http://revolvemockerycopper.com/"], :root a[href^="https://awptjmp.com/"], :root a[href^="https://join.sexworld3d.com/track/"], :root a[href^="https://aweptjmp.com/"], :root a[href^="https://ausoafab.net/"], :root a[href^="https://clicks.pipaffiliates.com/"], :root a[href^="https://aj1070.online/"], :root a[href^="https://a.bestcontentoperation.top/"], :root a[href^="https://adultfriendfinder.com/go/"], :root a[href^="https://ads.planetwin365affiliate.com/"], :root a[href^="https://ads.leovegas.com/"], :root a[href^="https://go.xlvirdr.com"], :root img[src^="https://images.purevpnaffiliates.com"], :root a[href^="https://porntubemate.com/"], :root a[href^="https://click.dtiserv2.com/"], :root a[href^="https://clickadilla.com/"], :root a[href^="https://a.medfoodhome.com/"], :root a[href^="https://cam4com.go2cloud.org/"], :root .nya-slot[style], :root a[href^="https://a.bestcontentweb.top/"], :root atf-ad-slot, :root a[href^="https://a2.adform.net/"], :root a[href^="https://a.candyai.love/"], :root .banner-img > .pbl, :root [data-m-ad-id], :root a[href^="https://a-ads.com/"], :root a[href^="https://1winpb.com/"], :root div[id^="optidigital-adslot"], :root [href^="https://wsup.ai/"], :root a[href^="https://123-stream.org/"], :root a[href^="https://in.rabbtrk.com/"], :root a[href^="http://www.h4trck.com/"], :root [href^="https://a.acebet.com/api/click?"], :root a[href^="http://www.friendlyduck.com/AF_"], :root a[href^="http://partners.etoro.com/"], :root [href="https://chaturbate.jjgirls.com/"] > img, :root a[href^="http://cam4com.go2cloud.org/aff_c?"], :root a[href^="https://ads.betfair.com/redirect.aspx?"], :root amp-ad-custom, :root a[href^="http://trk.globwo.online/"], :root a[onclick^="window.location.replace('https://random-affiliate.atimaze.com/"], :root a[href^="https://bongacams2.com/track?"], :root a-ad, :root a[href^="https://offhandpump.com/"], :root a[href^="http://stickingrepute.com/"], :root #slashboxes > .deals-rail, :root div[aria-label="Ads"], :root [href^="http://mypillow.com/"] > img, :root a[href^="http://bongacams.com/track?"], :root a[href^="//startgaming.net/tienda/" i], :root a[href^="https://a.medfoodsafety.com/"], :root a[href^="//go.eabids.com/"], :root a[href^=" https://www.friendlyduck.com/AF_"], :root [data-cl-spot-id], :root a[href*="/jump/next.php?r="], :root a[href^="https://go.nordvpn.net/aff"] > img, :root .\[\&_\.gdprAdTransparencyCogWheelButton\]\:\!pjra-z-\[5\], :root [href^="http://clicks.totemcash.com/"], :root a[href^="https://ad.zanox.com/ppc/"] > img, :root [data-d-ad-id], :root a[href*=".engine.adglare.net/"], :root div[id^="lazyad-"], :root a[href^="http://com-1.pro/"], :root [href^="https://www.profitablegatecpm.com/"], :root a[href*=".cfm?domain="][href*="&fp="], :root a[href^="https://ab.advertiserurl.com/aff/"], :root a[data-oburl^="https://paid.outbrain.com/network/redir?"], :root [id^="section-ad-banner"], :root [id^="ad_slider"], :root a[href^="https://www.goldenfrog.com/vyprvpn?offer_id="][href*="&aff_id="], :root a[href^="https://wmctjd.com/"], :root a[href*="//jjgirls.com/sex/Chaturbate"], :root [id^="ad-wrap-"], :root [href^="https://zone.gotrackier.com/"], :root a[href^="http://sarcasmadvisor.com/"], :root [href^="https://www.restoro.com/"], :root a[href^="https://track.totalav.com/"], :root a[href^="https://ctrdwm.com/"], :root [href^="https://www.targetingpartner.com/"], :root a[href^="https://join.virtuallust3d.com/"], :root .section-subheader > .section-hotel-prices-header, :root [href^="https://www.hostg.xyz/"] > img, :root a[href^="https://bngpt.com/"], :root a[href^="https://www.sheetmusicplus.com/"][href*="?aff_id="], :root a[href^="http://adultfriendfinder.com/go/"], :root a[href^="https://fastestvpn.com/lifetime-special-deal?a_aid="], :root a[href^="https://tour.mrskin.com/"], :root div[id^="ad-position-"], :root a[href^="https://www.toprevenuegate.com/"], :root a[href^="https://bc.game/"], :root a[href^="http://join.brokestraightboys.com/track/"], :root div[id^="div-ads-"], :root [href^="https://rapidgator.net/article/premium/ref/"], :root [href^="https://join.girlsoutwest.com/"], :root a[href^="https://activate-game.com/"], :root .scroll-fixable.rail-right > .deals-rail, :root [data-wpas-zoneid], :root a[href^="https://track.aftrk3.com/"], :root [href^="https://join3.bannedsextapes.com"], :root div[data-adzone], :root div[id^="adngin-"], :root [data-rc-widget], :root span[data-ez-ph-id], :root [href^="https://track.aftrk1.com/"], :root [href^="https://join.playboyplus.com/track/"], :root a[href^="https://go.xxxijmp.com"], :root [href^="https://istlnkcl.com/"], :root a[href^="https://trk.softonixs.xyz/"], :root a[href^="https://iqbroker.com/"][href*="?aff="], :root [href^="https://rpwmct.com/"], :root [href^="https://wct.link/click?"], :root a[href^="https://t.acam.link/"], :root a[href^="https://go.strpjmp.com/"], :root [href^="https://url.totaladblock.com/"], :root a[href^="https://go.rmishe.com/"], :root [href^="https://ilovemyfreedoms.com/landing-"], :root [href="https://adstub.net/indo666/"], :root [href^="https://glersakr.com/"], :root a[href^="https://tm-offers.gamingadult.com/"], :root [href^="https://charmingdatings.life/"], :root [data-id^="div-gpt-ad"], :root a[href^="https://tracker.loropartners.com/"], :root [href^="https://awbbjmp.com/"], :root a[href^="https://www.friendlyduck.com/AF_"], :root [href^="https://ad1.adfarm1.adition.com/"], :root a[href^="https://t.ajrkm3.com/"], :root [href^="https://aads.com/campaigns/"], :root a[href^="https://fc.lc/ref/"], :root a[href^="https://go.bbrdbr.com"], :root a[href^="http://tc.tradetracker.net/"] > img, :root a[href^="https://s.zlink3.com/"], :root a[href^="http://sneakyadministration.com/"], :root [href^="https://www.brighteonstore.com/products/"] img, :root a[href^="https://bngprm.com/"], :root [href^="https://shiftnetwork.infusionsoft.com/go/"] > img, :root [href^="http://www.mypillow.com/"] > img, :root .ob_container .item-container-obpd, :root [id^="div-gpt-ad"], :root [href="https://jdrucker.com/gold"] > img, :root a[href^="https://join.virtualtaboo.com/track/"], :root [id^="ad_sky"], :root [name^="google_ads_iframe"], :root aside[id^="adrotate_widgets-"], :root a[href^="https://www.liquidfire.mobi/"], :root DFP-AD, :root .grid > .container > #aside-promotion, :root [data-type="ad-vertical"], :root [href^="https://go.xlrdr.com"], :root a[href^="https://s.cant3am.com/"], :root [data-testid^="taboola-"], :root [data-testid^="section-AdRowBillboard"], :root a[href^="https://track.1234sd123.com/"], :root zeus-ad, :root [data-testid="prism-ad-wrapper"], :root [href^="https://ad.admitad.com/"], :root [href^="https://mypillow.com/"] > img, :root [data-testid="ad_testID"], :root [data-mobile-ad-id], :root [data-dynamic-ads], :root a[href^="https://gamingadlt.com/?offer="], :root [data-desktop-ad-id], :root a[href^="https://go.rmhfrtnd.com"], :root a[href^="https://pb-imc.com/"], :root a[href^="https://www8.smartadserver.com/"], :root topadblock, :root a[href^="//s.zlinkd.com/"], :root [href^="https://mypatriotsupply.com/"] > img, :root [data-testid="adBanner-wrapper"], :root [href^="https://mylead.global/stl/"] > img, :root a[href*=".adsrv.eacdn.com/"], :root [href^="https://antiagingbed.com/discount/"] > img, :root #teaser1[style^="width:autopx;"], :root [href^="https://www.cloudways.com/en/?id"], :root [data-asg-ins], :root [data-block-type="ad"], :root [data-ad-width], :root a[href^="https://clickins.slixa.com/"], :root [onclick*="content.ad/"], :root a[href^="https://go.cmtaffiliates.com/"], :root [href^="https://optimizedelite.com/"] > img, :root div[data-ad-region], :root AMP-AD, :root [data-ad-cls], :root a[href^="https://www.adxsrve.com/"], :root a[href^="https://click.Ggpickaff.com/"], :root [data-ez-name], :root a[href^="https://go.mnaspm.com/"], :root a[href^="https://service.bv-aff-trx.com/"], :root a[href^="https://6-partner.com/"], :root [class^="s2nPlayer"], :root [href^="https://affiliate.fastcomet.com/"] > img, :root [class^="adDisplay-module"], :root a[href^="https://adclick.g.doubleclick.net/"], :root [data-freestar-ad][id], :root AD-SLOT, :root a[href^="https://combodef.com/"], :root a[href^="https://click.hoolig.app/"], :root a[href^="https://www.googleadservices.com/pagead/aclk?"] > img, :root [data-ad-module], :root a[href^="https://a.bestcontentfood.top/"], :root #kt_player > a[target="_blank"], :root a[href^="https://go.skinstrip.net"][href*="?campaignId="], :root #teaser2[style^="width:autopx;"], :root [data-revive-zoneid], :root a[href^="https://losingoldfry.com/"], :root div[id^="div-gpt-"], :root a[href^="https://gml-grp.com/"], :root .ob_dual_right > .ob_ads_header ~ .odb_div, :root div[data-ad-targeting], :root a[style="width:100%;height:100%;z-index:10000000000000000;position:absolute;top:0;left:0;"], :root [href^="https://www.avantlink.com/click.php"] img, :root [data-testid="commercial-label-taboola"], :root [class^="div-gpt-ad"], :root a[href^="https://traffdaq.com/"], :root #teaser3[style^="width:autopx;"], :root a[href^="https://go.hpyjmp.com"], :root iframe[scrolling="no"][sandbox*="allow-popups allow-modals"][style^="width: 100%; height: 100%; border: none;"], :root [href^="https://mystore.com/"] > img, :root [class^="amp-ad-"], :root a[href^="https://clixtrac.com/"], :root a[href^="https://wittered-mainging.com/"], :root #teaser3[style="width: 100%;text-align: center;display: scroll;position:fixed;bottom: 0;margin: 0 auto;z-index: 103;"] { display: none !important; }</style><style id="mttstyle">
+    #mttContainer {
+      left: 0 !important;
+      top: 0 !important;
+      width: 1000px !important;
+      margin: 0px !important;
+      margin-left: -500px !important;
+      position: fixed !important;
+      z-index: 2147483647 !important; /* Maximum z-index to overcome overlays */
+      background: none !important;
+      pointer-events: none !important;
+      display: inline-block !important;
+      visibility: visible  !important;
+      white-space: pre-line;
+    }
+    .tippy-box[data-theme~="custom"], .tippy-box[data-theme~="ocr"], .tippy-content *{
+      font-size: 14px  !important;
+      text-align: center !important;
+      overflow-wrap: break-word !important;
+      color: #ffffffff !important;
+      font-family: 
+        -apple-system, BlinkMacSystemFont,
+        "Segoe UI", "Roboto", "Oxygen",
+        "Ubuntu", "Cantarell", "Fira Sans",
+        "Droid Sans", "Helvetica Neue", sans-serif  !important;
+      white-space: pre-line;
+    }
+    .tippy-box[data-theme~="custom"]{
+      max-width: 200px  !important;
+      backdrop-filter: blur(4px) !important;
+      background-color: #000000b8 !important;
+      border: 1px solid #ffffff00; 
+      box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+      opacity: 1.0; /* Adjusted opacity for transparency */
+    }
+    .tippy-box[data-theme~="ocr"]{
+      max-width: $1000px  !important;
+      backdrop-filter: blur(4px) !important;
+      background-color: #000000b8 !important;
+      border: 1px solid #ffffff00; 
+      box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+      opacity: 1.0; /* Adjusted opacity for transparency */
+    }
+    .tippy-box[data-theme~="transparent"] {
+      max-width: $1000px  !important;
+      backdrop-filter: blur(4px) !important;
+      background-color: #000000b8 !important;
+      border: 1px solid #ffffff00; 
+      box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+      opacity: 0.0; /* Adjusted opacity for transparency */
+      transition: opacity 0.3s ease-in-out; /* Added transition for opacity */
+    }
+    [data-tippy-root] {
+      display: inline-block !important;
+      visibility: visible  !important;
+    }
+    .tippy-box[data-theme~='custom'][data-placement^='top'] > .tippy-arrow::before, .tippy-box[data-theme~='ocr'][data-placement^='top'] > .tippy-arrow::before { 
+      border-top-color: #000000b8 !important;
+    }
+    .tippy-box[data-theme~='custom'][data-placement^='bottom'] > .tippy-arrow::before, .tippy-box[data-theme~='ocr'][data-placement^='bottom'] > .tippy-arrow::before {
+      border-bottom-color: #000000b8 !important;
+    }
+    .tippy-box[data-theme~='custom'][data-placement^='left'] > .tippy-arrow::before, .tippy-box[data-theme~='ocr'][data-placement^='left'] > .tippy-arrow::before {
+      border-left-color: #000000b8 !important;
+    }
+    .tippy-box[data-theme~='custom'][data-placement^='right'] > .tippy-arrow::before, .tippy-box[data-theme~='ocr'][data-placement^='right'] > .tippy-arrow::before {
+      border-right-color: #000000b8 !important;
+    }
+
+    .mtt-highlight{
+      background-color: #21dc6d40  !important;
+      position: absolute !important;   
+      z-index: 2147483646 !important; /* Slightly lower than tooltip */
+      pointer-events: none !important;
+      display: inline !important;
+      border-radius: 3px !important;
+    }
+    .mtt-image{
+      width: 180px  !important;
+      border-radius: 3px !important;
+    }
+    .ocr_text_div{
+      position: absolute;
+      opacity: 0.4;
+      color: transparent !important;
+      border: 2px solid CornflowerBlue;
+      background: none !important;
+      border-radius: 3px !important;
+    }</style><style id="mttstyleSubtitle">
+    #ytp-caption-window-container .ytp-caption-segment {
+      cursor: text !important;
+      user-select: text !important;
+      font-family: 
+      -apple-system, BlinkMacSystemFont,
+      "Segoe UI", "Roboto", "Oxygen",
+      "Ubuntu", "Cantarell", "Fira Sans",
+      "Droid Sans", "Helvetica Neue", sans-serif  !important;
+    }
+    .caption-visual-line{
+      display: flex  !important;
+      align-items: stretch  !important;
+      direction: ltr
+    }
+    .captions-text .caption-visual-line:first-of-type:after {
+      content: '⣿⣿';
+      border-radius: 3px !important;
+      color: white !important;
+      background: transparent !important;
+      box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px inset, rgba(0, 0, 0, 0.3) 0px 18px 36px -18px inset;
+      display: inline-block;
+      vertical-align: top;
+      opacity:0;
+      transition: opacity 0.7s ease-in-out;
+    }
+    .ytp-caption-segment{
+      color: white !important;
+      text-shadow: 1px 1px 2px black !important;
+      backdrop-filter: blur(3px) !important;
+      background: rgba(8, 8, 8, 0.1)  !important;
+    }
+    .captions-text:hover .caption-visual-line:first-of-type:after {
+      opacity:1;
+    }
+    .ytp-pause-overlay {
+      display: none !important;
+    }
+    .ytp-expand-pause-overlay .caption-window {
+      display: block !important;
+    }
+  </style></head>
+<body>
+    <div class="container">
+        <!-- LOGIN SECTION -->
+        <div id="loginSection" class="login-section">
+            <h1 class="login-title">VALVE RPG</h1>
+
+            <div class="role-selector">
+                <button class="role-btn active" onclick="selectRole(&#39;player&#39;)">JOGADOR</button>
+                <button class="role-btn" onclick="selectRole(&#39;master&#39;)">MESTRE</button>
+            </div>
+
+            <!-- Player Form -->
+            <div id="playerForm" class="login-form">
+                <div class="form-group">
+                    <label>Nome do Personagem:</label>
+                    <input type="text" id="playerName" placeholder="Digite o nome do personagem">
+                </div>
+                <div class="form-group">
+                    <label>Código da Sessão:</label>
+                    <input type="text" id="playerSessionCode" placeholder="Digite o código da sessão">
+                </div>
+                <button class="submit-btn" onclick="loginAsPlayer()">ENTRAR NA SESSÃO</button>
+            </div>
+
+            <!-- Master Form -->
+            <div id="masterForm" class="login-form hidden">
+                <div class="form-group">
+                    <label>Nome do Mestre:</label>
+                    <input type="text" id="masterName" placeholder="Digite seu nome">
+                </div>
+                <div class="form-group">
+                    <label>Código da Sessão:</label>
+                    <input type="text" id="masterSessionCode" placeholder="Deixe em branco para criar nova">
+                </div>
+                <button class="submit-btn" onclick="loginAsMaster()">CRIAR/ENTRAR SESSÃO</button>
+            </div>
+        </div>
+
+        <!-- DASHBOARD -->
+        <div id="dashboard" class="dashboard hidden">
+            <div class="dashboard-header">
+                <div class="user-info">
+                    <h2 id="userName"></h2>
+                    <span class="session-code">Sessão: <strong id="sessionCode"></strong></span>
+                </div>
+                <button class="logout-btn" onclick="logout()">SAIR</button>
+            </div>
+
+            <!-- Master Panel -->
+            <div id="masterPanel" class="master-panel hidden">
+                <h3>JOGADORES NA SESSÃO</h3>
+                <div id="playersGrid" class="players-grid"></div>
+            </div>
+
+            <!-- Ficha Container -->
+            <div id="fichaContainer" class="ficha-container">
+                <div class="no-player-selected">
+                    <p id="fichaMessage">Carregando ficha...</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Firebase SDK -->
+    <script src="./valve-rpg-online_files/firebase-app-compat.js.download"></script>
+    <script src="./valve-rpg-online_files/firebase-auth-compat.js.download"></script>
+    <script src="./valve-rpg-online_files/firebase-firestore-compat.js.download"></script>
+
+    <script>
+        // Firebase Configuration
+        const firebaseConfig = {
+        apiKey: "AIzaSyAenYU8S3JkkcR3Mhy19ujNAnUfb7EU74w",
+        authDomain: "valve-rpg-system.firebaseapp.com",
+        projectId: "valve-rpg-system",
+        storageBucket: "valve-rpg-system.firebasestorage.app",
+        messagingSenderId: "456413195150", 
+        appId: "1:456413195150:web:11fc2c93bb7cc5a9ef12df"
+             };
+
+        firebase.initializeApp(firebaseConfig);
+        const auth = firebase.auth();
+        const db = firebase.firestore();
+
+        // Global Variables
+        let currentUser = null;
+        let currentRole = 'player';
+        let currentSession = null;
+        let currentPlayerId = null;
+        let syncInterval = null;
+        let playersListener = null;
+        let fichaDataListener = null;
+
+        // Role Selection
+        function selectRole(role) {
+            currentRole = role;
+            document.querySelectorAll('.role-btn').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+
+            if (role === 'player') {
+                document.getElementById('playerForm').classList.remove('hidden');
+                document.getElementById('masterForm').classList.add('hidden');
+            } else {
+                document.getElementById('playerForm').classList.add('hidden');
+                document.getElementById('masterForm').classList.remove('hidden');
+            }
+        }
+
+        // Generate Random Session Code
+        function generateSessionCode() {
+            const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+            let code = '';
+            for (let i = 0; i < 6; i++) {
+                code += chars.charAt(Math.floor(Math.random() * chars.length));
+            }
+            return code;
+        }
+
+        // Login as Player
+        async function loginAsPlayer() {
+            const playerName = document.getElementById('playerName').value.trim();
+            const sessionCode = document.getElementById('playerSessionCode').value.trim().toUpperCase();
+
+            if (!playerName || !sessionCode) {
+                alert('Por favor, preencha todos os campos!');
+                return;
+            }
+
+            try {
+                // Login anonimamente
+                const userCredential = await auth.signInAnonymously();
+                currentUser = userCredential.user;
+
+                // Verificar se a sessão existe
+                const sessionRef = db.collection('sessions').doc(sessionCode);
+                const sessionDoc = await sessionRef.get();
+
+                if (!sessionDoc.exists) {
+                    alert('Sessão não encontrada! Verifique o código.');
+                    await auth.signOut();
+                    return;
+                }
+
+                currentSession = sessionCode;
+
+                // Adicionar jogador à sessão
+                const playerId = currentUser.uid;
+                currentPlayerId = playerId;
+
+                await sessionRef.collection('players').doc(playerId).set({
+                    name: playerName,
+                    userId: playerId,
+                    lastSeen: firebase.firestore.FieldValue.serverTimestamp(),
+                    online: true
+                });
+
+                // Criar documento de dados da ficha se não existir
+                const fichaRef = sessionRef.collection('fichasData').doc(playerId);
+                const fichaDoc = await fichaRef.get();
+
+                if (!fichaDoc.exists) {
+                    await fichaRef.set({
+                        playerName: playerName,
+                        lastUpdate: firebase.firestore.FieldValue.serverTimestamp(),
+                        data: {}
+                    });
+                }
+
+                showDashboard(playerName, sessionCode, 'player');
+                setupPlayerSync(sessionCode, playerId);
+            } catch (error) {
+                console.error('Erro ao fazer login:', error);
+                alert('Erro ao entrar na sessão: ' + error.message);
+            }
+        }
+
+        // Login as Master
+        async function loginAsMaster() {
+            const masterName = document.getElementById('masterName').value.trim();
+            let sessionCode = document.getElementById('masterSessionCode').value.trim().toUpperCase();
+
+            if (!masterName) {
+                alert('Por favor, digite seu nome!');
+                return;
+            }
+
+            try {
+                const userCredential = await auth.signInAnonymously();
+                currentUser = userCredential.user;
+
+                // Criar nova sessão se não forneceu código
+                if (!sessionCode) {
+                    sessionCode = generateSessionCode();
+                    await db.collection('sessions').doc(sessionCode).set({
+                        masterName: masterName,
+                        masterId: currentUser.uid,
+                        createdAt: firebase.firestore.FieldValue.serverTimestamp()
+                    });
+                } else {
+                    // Verificar se sessão existe
+                    const sessionDoc = await db.collection('sessions').doc(sessionCode).get();
+                    if (!sessionDoc.exists) {
+                        alert('Sessão não encontrada!');
+                        await auth.signOut();
+                        return;
+                    }
+                }
+
+                currentSession = sessionCode;
+                showDashboard(masterName, sessionCode, 'master');
+                setupMasterPanel(sessionCode);
+            } catch (error) {
+                console.error('Erro ao fazer login:', error);
+                alert('Erro ao criar/entrar sessão: ' + error.message);
+            }
+        }
+
+        // Show Dashboard
+        function showDashboard(userName, sessionCode, role) {
+            document.getElementById('loginSection').classList.add('hidden');
+            document.getElementById('dashboard').classList.remove('hidden');
+            document.getElementById('userName').textContent = userName;
+            document.getElementById('sessionCode').textContent = sessionCode;
+
+            if (role === 'master') {
+                document.getElementById('masterPanel').classList.remove('hidden');
+                document.getElementById('fichaMessage').textContent = 'Selecione um jogador para ver a ficha';
+            } else {
+                document.getElementById('masterPanel').classList.add('hidden');
+                loadPlayerFicha();
+            }
+        }
+
+        // Setup Player Sync (Player sends data to Firebase)
+        function setupPlayerSync(sessionCode, playerId) {
+            // Receber mensagens do iframe da ficha
+            window.addEventListener('message', async (event) => {
+                if (event.data.type === 'SAVE_FICHA_DATA') {
+                    try {
+                        const fichaRef = db.collection('sessions').doc(sessionCode)
+                            .collection('fichasData').doc(playerId);
+
+                        await fichaRef.set({
+                            data: event.data.data,
+                            lastUpdate: firebase.firestore.FieldValue.serverTimestamp()
+                        }, { merge: true });
+
+                        // Atualizar lastSeen do jogador
+                        await db.collection('sessions').doc(sessionCode)
+                            .collection('players').doc(playerId)
+                            .update({
+                                lastSeen: firebase.firestore.FieldValue.serverTimestamp()
+                            });
+                    } catch (error) {
+                        console.error('Erro ao salvar dados:', error);
+                    }
+                }
+            });
+
+            // Heartbeat para manter jogador online
+            setInterval(async () => {
+                try {
+                    await db.collection('sessions').doc(sessionCode)
+                        .collection('players').doc(playerId)
+                        .update({
+                            lastSeen: firebase.firestore.FieldValue.serverTimestamp(),
+                            online: true
+                        });
+                } catch (error) {
+                    console.error('Erro ao atualizar status:', error);
+                }
+            }, 10000); // A cada 10 segundos
+        }
+
+        // Load Player Ficha
+        function loadPlayerFicha() {
+            const container = document.getElementById('fichaContainer');
+            container.innerHTML = `<iframe src="https://dede3phc22dgx.cloudfront.net/creao2/dcaaa326-c36e-4585-ab82-3ff22c26afb5/78c153d0-8021-708c-3a82-42e7f890ce9f/9fdb68a6-71b1-4c55-8a8a-fc0f520aab00/ficha-rpg-valve-mobile-FIXED.html?session=${currentSession}&player=${currentPlayerId}&role=player"></iframe>`;
+        }
+
+        // Setup Master Panel
+        function setupMasterPanel(sessionCode) {
+            const playersRef = db.collection('sessions').doc(sessionCode).collection('players');
+
+            // Listener em tempo real para jogadores
+            playersListener = playersRef.onSnapshot((snapshot) => {
+                const playersGrid = document.getElementById('playersGrid');
+                playersGrid.innerHTML = '';
+
+                snapshot.forEach((doc) => {
+                    const player = doc.data();
+                    const playerId = doc.id;
+
+                    // Verificar se está online (último update há menos de 30 segundos)
+                    const isOnline = player.lastSeen &&
+                        (Date.now() - player.lastSeen.toMillis() < 30000);
+
+                    const playerCard = document.createElement('div');
+                    playerCard.className = 'player-card';
+                    playerCard.innerHTML = `
+                        <button class="remove-player" onclick="removePlayer('${playerId}')">×</button>
+                        <h4>${player.name}</h4>
+                        <div class="player-status">
+                            <span>
+                                <span class="status-indicator ${isOnline ? 'status-online' : 'status-offline'}"></span>
+                                ${isOnline ? 'Online' : 'Offline'}
+                            </span>
+                        </div>
+                    `;
+
+                    playerCard.onclick = (e) => {
+                        if (!e.target.classList.contains('remove-player')) {
+                            selectPlayer(playerId, player.name);
+                        }
+                    };
+
+                    playersGrid.appendChild(playerCard);
+                });
+
+                if (snapshot.empty) {
+                    playersGrid.innerHTML = '<p style="text-align: center; color: #8b6f47;">Nenhum jogador na sessão ainda</p>';
+                }
+            });
+        }
+
+        // Select Player (Master View)
+        function selectPlayer(playerId, playerName) {
+            // Remover active de todos os cards
+            document.querySelectorAll('.player-card').forEach(card => {
+                card.classList.remove('active');
+            });
+
+            // Adicionar active ao card clicado
+            event.currentTarget.classList.add('active');
+
+            // Limpar listener anterior se existir
+            if (fichaDataListener) {
+                fichaDataListener();
+            }
+
+            // Carregar ficha do jogador com sincronização em tempo real
+            const container = document.getElementById('fichaContainer');
+            container.innerHTML = `<iframe id="fichaIframe" src="https://dede3phc22dgx.cloudfront.net/creao2/dcaaa326-c36e-4585-ab82-3ff22c26afb5/78c153d0-8021-708c-3a82-42e7f890ce9f/9fdb68a6-71b1-4c55-8a8a-fc0f520aab00/ficha-rpg-valve-mobile-FIXED.html?session=${currentSession}&player=${playerId}&role=master"></iframe>`;
+
+            // Listener em tempo real para dados da ficha
+            const fichaRef = db.collection('sessions').doc(currentSession)
+                .collection('fichasData').doc(playerId);
+
+            fichaDataListener = fichaRef.onSnapshot((doc) => {
+                if (doc.exists) {
+                    const iframe = document.getElementById('fichaIframe');
+                    if (iframe && iframe.contentWindow) {
+                        iframe.contentWindow.postMessage({
+                            type: 'LOAD_FICHA_DATA',
+                            data: doc.data().data || {}
+                        }, '*');
+                    }
+                }
+            });
+        }
+
+        // Remove Player
+        async function removePlayer(playerId) {
+            if (!confirm('Tem certeza que deseja remover este jogador?')) {
+                return;
+            }
+
+            try {
+                await db.collection('sessions').doc(currentSession)
+                    .collection('players').doc(playerId).delete();
+
+                await db.collection('sessions').doc(currentSession)
+                    .collection('fichasData').doc(playerId).delete();
+
+                alert('Jogador removido com sucesso!');
+            } catch (error) {
+                console.error('Erro ao remover jogador:', error);
+                alert('Erro ao remover jogador: ' + error.message);
+            }
+        }
+
+        // Logout
+        async function logout() {
+            if (currentRole === 'player' && currentSession && currentPlayerId) {
+                // Marcar jogador como offline
+                try {
+                    await db.collection('sessions').doc(currentSession)
+                        .collection('players').doc(currentPlayerId)
+                        .update({ online: false });
+                } catch (error) {
+                    console.error('Erro ao atualizar status:', error);
+                }
+            }
+
+            // Limpar listeners
+            if (playersListener) playersListener();
+            if (fichaDataListener) fichaDataListener();
+            if (syncInterval) clearInterval(syncInterval);
+
+            await auth.signOut();
+
+            document.getElementById('dashboard').classList.add('hidden');
+            document.getElementById('loginSection').classList.remove('hidden');
+
+            // Limpar formulários
+            document.getElementById('playerName').value = '';
+            document.getElementById('playerSessionCode').value = '';
+            document.getElementById('masterName').value = '';
+            document.getElementById('masterSessionCode').value = '';
+
+            currentUser = null;
+            currentSession = null;
+            currentPlayerId = null;
+        }
+
+        // Cleanup on page unload
+        window.addEventListener('beforeunload', () => {
+            if (currentRole === 'player' && currentSession && currentPlayerId) {
+                navigator.sendBeacon('/api/offline', JSON.stringify({
+                    session: currentSession,
+                    player: currentPlayerId
+                }));
+            }
+        });
+    </script>
+
+
+</body></html>
